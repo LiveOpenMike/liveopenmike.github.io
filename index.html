@@ -238,13 +238,16 @@
         <article class="card">
           <img src="${reward.thumbnail}" alt="${reward.name}">
           <div class="card-body">
-            <div class="name-row">
-              <h2>${reward.name}</h2>
-              <span class="cost">${reward.cost.toLocaleString()} pts</span>
-            </div>
-            <p class="description">${reward.description}</p>
-            <div class="command-label">Type in chat:</div>
-            <code>${reward.command}</code>
+<div class="name-row">
+  <h2>${reward.name}</h2>
+</div>
+<div class="cost">${reward.cost.toLocaleString()} pts</div>
+<p class="description">${reward.description}</p>
+<div class="command-label">Click to copy chat command:</div>
+<button class="command-box" type="button" data-command="${reward.command}">
+  <code>${reward.command}</code>
+  <span class="copy-icon" aria-hidden="true">📋</span>
+</button>
           </div>
         </article>
       `).join("");
@@ -252,6 +255,30 @@
 
     searchEl.addEventListener("input", renderRewards);
     sortEl.addEventListener("change", renderRewards);
+
+    rewardsEl.addEventListener("click", async (event) => {
+  const button = event.target.closest(".command-box");
+  if (!button) return;
+
+  const command = button.dataset.command;
+
+  try {
+    await navigator.clipboard.writeText(command);
+
+    const icon = button.querySelector(".copy-icon");
+    const originalIcon = icon.textContent;
+
+    icon.textContent = "✅";
+    button.classList.add("copied");
+
+    setTimeout(() => {
+      icon.textContent = originalIcon;
+      button.classList.remove("copied");
+    }, 1200);
+  } catch (error) {
+    alert(`Copy this command: ${command}`);
+  }
+});
 
     loadRewards();
   </script>
