@@ -1,39 +1,226 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Open Mike - Rewards Store</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #9146ff;
-            text-align: center;
-        }
-        p {
-            color: #333;
-            line-height: 1.6;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stream Rewards</title>
+  <style>
+    :root {
+      --bg: #0f0f14;
+      --card: #1a1a23;
+      --text: #f5f5f7;
+      --muted: #b8b8c7;
+      --accent: #9146ff;
+      --border: #2a2a36;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #251640, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 20px 24px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 5vw, 4rem);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .toolbar {
+      max-width: 1100px;
+      margin: 0 auto 24px;
+      padding: 0 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    input, select {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 1rem;
+    }
+
+    input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(26, 26, 35, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+      display: block;
+      background: #222;
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .name-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .cost {
+      background: var(--accent);
+      color: white;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0 0 16px;
+    }
+
+    .command-label {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    code {
+      display: block;
+      background: #101018;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      color: #fff;
+      overflow-wrap: anywhere;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--muted);
+      padding: 40px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🎮 Live Open Mike - Rewards Store</h1>
-        <p>Welcome to the rewards store for Live Open Mike's Twitch channel!</p>
-        <p>This page is currently under construction. Check back soon for exciting rewards and exclusive perks for our community members.</p>
-    </div>
+  <header>
+    <h1>Live Open Mike Pixel Rewards</h1>
+    <p class="subtitle">Spend your pixels by typing the redeem command in Twitch chat.</p>
+  </header>
+
+  <section class="toolbar">
+    <input id="search" type="search" placeholder="Search rewards..." />
+    <select id="sort">
+      <option value="name">Sort by name</option>
+      <option value="cost-low">Cost: low to high</option>
+      <option value="cost-high">Cost: high to low</option>
+    </select>
+  </section>
+
+  <main id="rewards"></main>
+
+  <script>
+    const rewardsEl = document.querySelector("#rewards");
+    const searchEl = document.querySelector("#search");
+    const sortEl = document.querySelector("#sort");
+
+    let rewards = [];
+
+    async function loadRewards() {
+      const response = await fetch("rewards.json");
+      rewards = await response.json();
+      renderRewards();
+    }
+
+    function renderRewards() {
+      const query = searchEl.value.toLowerCase().trim();
+      const sort = sortEl.value;
+
+      let visibleRewards = rewards.filter((reward) => {
+        return (
+          reward.name.toLowerCase().includes(query) ||
+          reward.description.toLowerCase().includes(query) ||
+          reward.command.toLowerCase().includes(query)
+        );
+      });
+
+      visibleRewards.sort((a, b) => {
+        if (sort === "cost-low") return a.cost - b.cost;
+        if (sort === "cost-high") return b.cost - a.cost;
+        return a.name.localeCompare(b.name);
+      });
+
+      if (visibleRewards.length === 0) {
+        rewardsEl.innerHTML = `<div class="empty">No rewards found.</div>`;
+        return;
+      }
+
+      rewardsEl.innerHTML = visibleRewards.map((reward) => `
+        <article class="card">
+          <img src="${reward.thumbnail}" alt="${reward.name}">
+          <div class="card-body">
+            <div class="name-row">
+              <h2>${reward.name}</h2>
+              <span class="cost">${reward.cost.toLocaleString()} pts</span>
+            </div>
+            <p class="description">${reward.description}</p>
+            <div class="command-label">Type in chat:</div>
+            <code>${reward.command}</code>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    searchEl.addEventListener("input", renderRewards);
+    sortEl.addEventListener("change", renderRewards);
+
+    loadRewards();
+  </script>
 </body>
 </html>
