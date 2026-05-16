@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Viewer Entrance Audio Clip",
+    "cost": 25000,
+    "command": "!buy entrance",
+    "thumbnail": "images/entranceSound.png",
+    "description": "Streamer will add a customized sound to play after your first chat message in a stream. Limit one per viewer."
+  },
+  {
+    "name": "Posture Check",
+    "cost": 400,
+    "command": "!redeem posture",
+    "thumbnail": "images/entranceSound.png",
+    "description": "Remind Mike to sit up straight."
+  },
+  {
+    "name": "Choose Next Game",
+    "cost": 5000,
+    "command": "!redeem nextgame",
+    "thumbnail": "images/entranceSound.png",
+    "description": "Suggest a game for a future stream."
+  }
+]
