@@ -323,9 +323,11 @@
   width: 100%;
   height: 100%;
   min-height: 230px;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
-  background: #222;
+  background:
+    radial-gradient(circle at center, rgba(145, 70, 255, 0.22), transparent 55%),
+    #101018;
 }
 
 .featured-content {
