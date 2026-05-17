@@ -5,6 +5,8 @@
     "command": "!buy entrance",
     "thumbnail": "images/entranceSound.png",
     "description": "Streamer will add a customized sound to play after your first chat message in a stream. Limit one per viewer."
+    "tags": ["Event"],
+    "featured": false
   },
   {
     "name": "Happy Hour",
@@ -12,6 +14,8 @@
     "command": "!buy happyHour",
     "thumbnail": "images/happyHour1hr.png",
     "description": "Time & event pixel rewards are doubled for one hour"
+    "tags": ["Event", "Bonuses"],
+    "featured": false
   },
   {
     "name": "Happy Hour Stream",
@@ -19,6 +23,8 @@
     "command": "!buy happyStream",
     "thumbnail": "images/happyHour24hr.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream"
+    "tags": ["Event, "Bonuses"],
+    "featured": true
   },
   {
     "name": "Paper Beast",
@@ -26,6 +32,8 @@
     "command": "!buy paperBeast",
     "thumbnail": "images/paperBeast.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream"
+    "tags": ["Game", "Stream", "Playthrough"],
+    "featured": false
   },
   {
     "name": "Potato Stream",
@@ -33,6 +41,8 @@
     "command": "!buy potatoStream",
     "thumbnail": "images/potatoCostume.png",
     "description": "Streamer does a full stream in a potato costume"
+    "tags": ["Event", "Stream"],
+    "featured": false
   },
   {
     "name": "Retropolis 2",
@@ -40,6 +50,8 @@
     "command": "!buy retro2",
     "thumbnail": "images/retropolis2.png",
     "description": "A full playthrough of Retropolis 2: Never Say Goodbye"
+    "tags": ["Game", "Stream", "Playthrough"],
+    "featured": false
   },
   {
     "name": "Stop, Drop, & Rogue",
@@ -47,6 +59,8 @@
     "command": "!buy rogue",
     "thumbnail": "images/stopDropAndRogue.png",
     "description": "Streamer has to stop current gameplay and do one run of a VR roguelite"
+    "tags": ["Game", "Stream", "Event"],
+    "featured": false
   },
   {
     "name": "Top Ten List",
@@ -54,6 +68,8 @@
     "command": "!buy top10",
     "thumbnail": "images/top-10-list.png",
     "description": "Give a topic for me to make a top 10 list for. Anything offensive will be rejected"
+    "tags": ["Stream", "Event"],
+    "featured": false
   },
   {
     "name": "Golf Night",
@@ -61,6 +77,8 @@
     "command": "!buy walkabout",
     "thumbnail": "images/walkabout.png",
     "description": "Sponsor a night of Walkabout Mini Golf with the community"
+    "tags": ["Game", "Stream", "Event"],
+    "featured": false
   },  
   {
     "name": "Pixel Giveaway",
@@ -68,6 +86,8 @@
     "command": "!buy pixelGiveaway",
     "thumbnail": "images/pixelGiveaway.png",
     "description": "Sponsor a onetime giveaway of 4,000 for chat!"
+    "tags": ["Event", "Bonuses"],
+    "featured": false
   }
   
 ]
