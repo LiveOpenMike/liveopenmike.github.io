@@ -82,6 +82,7 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card img {
@@ -90,7 +91,24 @@
       object-fit: cover;
       display: block;
       background: #222;
+        transition: transform 0.25s ease;
     }
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow:
+    0 26px 60px rgba(0,0,0,0.35),
+    0 0 24px rgba(145, 70, 255, 0.25);
+}
+
+.card:hover img {
+  transform: scale(1.04);
+}
+
+.card:hover .command-box {
+  border-color: var(--accent);
+}    
 
     .card-body {
       padding: 18px;
@@ -184,7 +202,7 @@
 <body>
   <header>
     <h1>Live Open Mike Pixel Rewards</h1>
-    <p class="subtitle">Spend your pixels by typing the redeem command in Twitch chat.</p>
+    <p class="subtitle">Spend your pixels by typing the 'buy' command in Twitch chat.</p>
   </header>
 
   <section class="toolbar">
