@@ -3,70 +3,70 @@
     "name": "Entrance Sounder",
     "cost": 25000,
     "command": "!buy entrance",
-    "thumbnail": "/images/entranceSound.png",
+    "thumbnail": "images/entranceSound.png",
     "description": "Streamer will add a customized sound to play after your first chat message in a stream. Limit one per viewer."
   },
   {
     "name": "Happy Hour",
     "cost": 10000,
     "command": "!buy happyHour",
-    "thumbnail": "/images/happyHour1hr.png",
+    "thumbnail": "images/happyHour1hr.png",
     "description": "Time & event pixel rewards are doubled for one hour"
   },
   {
     "name": "Happy Hour Stream",
     "cost": 30000,
     "command": "!buy happyStream",
-    "thumbnail": "/images/happyHour24hr.png",
+    "thumbnail": "images/happyHour24hr.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream"
   },
   {
     "name": "Paper Beast",
     "cost": 35000,
     "command": "!buy paperBeast",
-    "thumbnail": "/images/paperBeast.png",
+    "thumbnail": "images/paperBeast.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream"
   },
   {
     "name": "Potato Stream",
     "cost": 100000,
     "command": "!buy potatoStream",
-    "thumbnail": "/images/potatoCostume.png",
+    "thumbnail": "images/potatoCostume.png",
     "description": "Streamer does a full stream in a potato costume"
   },
   {
     "name": "Retropolis 2",
     "cost": 35000,
     "command": "!buy retro2",
-    "thumbnail": "/images/retropolis2.png",
+    "thumbnail": "images/retropolis2.png",
     "description": "A full playthrough of Retropolis 2: Never Say Goodbye"
   },
   {
     "name": "Stop, Drop, & Rogue",
     "cost": 15000,
     "command": "!buy rogue",
-    "thumbnail": "/images/stopDropAndRogue.png",
+    "thumbnail": "images/stopDropAndRogue.png",
     "description": "Streamer has to stop current gameplay and do one run of a VR roguelite"
   },
   {
     "name": "Top Ten List",
     "cost": 8000,
     "command": "!buy top10",
-    "thumbnail": "/images/top-10-list.png",
+    "thumbnail": "images/top-10-list.png",
     "description": "Give a topic for me to make a top 10 list for. Anything offensive will be rejected"
   },
   {
     "name": "Golf Night",
     "cost": 15000,
     "command": "!buy walkabout",
-    "thumbnail": "/images/walkabout.png",
+    "thumbnail": "images/walkabout.png",
     "description": "Sponsor a night of Walkabout Mini Golf with the community"
   },  
   {
     "name": "Pixel Giveaway",
     "cost": 12000,
     "command": "!buy pixelGiveaway",
-    "thumbnail": "/images/pixelGiveaway.png",
+    "thumbnail": "images/pixelGiveaway.png",
     "description": "Sponsor a onetime giveaway of 4,000 for chat!"
   }
   
