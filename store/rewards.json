@@ -23,7 +23,7 @@
     "command": "!buy happyStream",
     "thumbnail": "images/happyHour24hr.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream"
-    "tags": ["Event, "Bonuses"],
+    "tags": ["Event", "Bonuses"],
     "featured": true
   },
   {
