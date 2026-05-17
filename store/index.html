@@ -296,6 +296,128 @@
       color: var(--muted);
       line-height: 1.6;
     }
+
+    .featured-section {
+  max-width: 1400px;
+  margin: 0 auto 24px;
+  padding: 0 20px;
+}
+
+.featured-card {
+  display: grid;
+  grid-template-columns: minmax(220px, 360px) 1fr;
+  gap: 22px;
+  align-items: stretch;
+  background:
+    linear-gradient(135deg, rgba(145, 70, 255, 0.22), rgba(26, 26, 35, 0.96)),
+    rgba(26, 26, 35, 0.96);
+  border: 1px solid rgba(145, 70, 255, 0.5);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 26px 70px rgba(0,0,0,0.35),
+    0 0 34px rgba(145, 70, 255, 0.22);
+}
+
+.featured-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+  object-fit: cover;
+  display: block;
+  background: #222;
+}
+
+.featured-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-kicker {
+  width: fit-content;
+  margin-bottom: 10px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.featured-title {
+  margin: 0 0 6px;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+}
+
+.featured-cost {
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  background: rgba(145, 70, 255, 0.16);
+  border: 1px solid rgba(145, 70, 255, 0.38);
+  color: #fff;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.card .tags {
+  margin-bottom: 12px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(20, 20, 28, 0.96);
+  border: 1px solid rgba(145, 70, 255, 0.55);
+  color: #fff;
+  border-radius: 999px;
+  padding: 12px 18px;
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.35),
+    0 0 24px rgba(145, 70, 255, 0.25);
+  font-weight: 800;
+  z-index: 50;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 760px) {
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-card img {
+    min-height: 190px;
+  }
+}
   </style>
 </head>
   
@@ -326,67 +448,127 @@
     </select>
   </section>
 
-  <main id="rewards"></main>
+<section id="featuredReward" class="featured-section"></section>
+
+<main id="rewards"></main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script>
-    const rewardsEl = document.querySelector("#rewards");
-    const searchEl = document.querySelector("#search");
-    const sortEl = document.querySelector("#sort");
+const rewardsEl = document.querySelector("#rewards");
+const featuredRewardEl = document.querySelector("#featuredReward");
+const searchEl = document.querySelector("#search");
+const sortEl = document.querySelector("#sort");
+const toastEl = document.querySelector("#toast");
 
-    let rewards = [];
+let rewards = [];
 
-    async function loadRewards() {
-      const response = await fetch("rewards.json");
-      rewards = await response.json();
-      renderRewards();
-    }
+async function loadRewards() {
+  const response = await fetch("rewards.json");
+  rewards = await response.json();
+  renderRewards();
+}
 
-    function renderRewards() {
-      const query = searchEl.value.toLowerCase().trim();
-      const sort = sortEl.value;
+function getTagsHtml(tags = []) {
+  if (!tags.length) return "";
 
-      let visibleRewards = rewards.filter((reward) => {
-        return (
-          reward.name.toLowerCase().includes(query) ||
-          reward.description.toLowerCase().includes(query) ||
-          reward.command.toLowerCase().includes(query)
-        );
-      });
+  return `
+    <div class="tags">
+      ${tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+    </div>
+  `;
+}
 
-      visibleRewards.sort((a, b) => {
-        if (sort === "cost-low") return a.cost - b.cost;
-        if (sort === "cost-high") return b.cost - a.cost;
-        return a.name.localeCompare(b.name);
-      });
+function getCommandButtonHtml(command) {
+  return `
+    <div class="command-label">Click to copy chat command:</div>
+    <button class="command-box" type="button" data-command="${command}">
+      <code>${command}</code>
+      <span class="copy-icon" aria-hidden="true">📋</span>
+    </button>
+  `;
+}
 
-      if (visibleRewards.length === 0) {
-        rewardsEl.innerHTML = `<div class="empty">No rewards found.</div>`;
-        return;
-      }
+function renderFeaturedReward() {
+  const featuredReward = rewards.find((reward) => reward.featured === true);
 
-      rewardsEl.innerHTML = visibleRewards.map((reward) => `
-        <article class="card">
-          <img src="${reward.thumbnail}" alt="${reward.name}">
-          <div class="card-body">
-<div class="name-row">
-  <h2>${reward.name}</h2>
-</div>
-<div class="cost">${reward.cost.toLocaleString()} pts</div>
-<p class="description">${reward.description}</p>
-<div class="command-label">Click to copy chat command:</div>
-<button class="command-box" type="button" data-command="${reward.command}">
-  <code>${reward.command}</code>
-  <span class="copy-icon" aria-hidden="true">📋</span>
-</button>
-          </div>
-        </article>
-      `).join("");
-    }
+  if (!featuredReward) {
+    featuredRewardEl.innerHTML = "";
+    return;
+  }
 
-    searchEl.addEventListener("input", renderRewards);
-    sortEl.addEventListener("change", renderRewards);
+  featuredRewardEl.innerHTML = `
+    <article class="featured-card">
+      <img src="${featuredReward.thumbnail}" alt="${featuredReward.name}">
+      <div class="featured-content">
+        <div class="featured-kicker">Featured Reward</div>
+        <h2 class="featured-title">${featuredReward.name}</h2>
+        <div class="featured-cost">${featuredReward.cost.toLocaleString()} pts</div>
+        ${getTagsHtml(featuredReward.tags)}
+        <p class="description">${featuredReward.description}</p>
+        ${getCommandButtonHtml(featuredReward.command)}
+      </div>
+    </article>
+  `;
+}
 
-    rewardsEl.addEventListener("click", async (event) => {
+function renderRewards() {
+  renderFeaturedReward();
+
+  const query = searchEl.value.toLowerCase().trim();
+  const sort = sortEl.value;
+
+  let visibleRewards = rewards.filter((reward) => {
+    const tags = reward.tags || [];
+
+    const matchesSearch =
+      reward.name.toLowerCase().includes(query) ||
+      reward.description.toLowerCase().includes(query) ||
+      reward.command.toLowerCase().includes(query) ||
+      tags.some((tag) => tag.toLowerCase().includes(query));
+
+    const isNotFeatured = reward.featured !== true;
+
+    return matchesSearch && isNotFeatured;
+  });
+
+  visibleRewards.sort((a, b) => {
+    if (sort === "cost-low") return a.cost - b.cost;
+    if (sort === "cost-high") return b.cost - a.cost;
+    return a.name.localeCompare(b.name);
+  });
+
+  if (visibleRewards.length === 0) {
+    rewardsEl.innerHTML = `<div class="empty">No rewards found.</div>`;
+    return;
+  }
+
+  rewardsEl.innerHTML = visibleRewards.map((reward) => `
+    <article class="card">
+      <img src="${reward.thumbnail}" alt="${reward.name}">
+      <div class="card-body">
+        <div class="name-row">
+          <h2>${reward.name}</h2>
+        </div>
+        <div class="cost">${reward.cost.toLocaleString()} pts</div>
+        ${getTagsHtml(reward.tags)}
+        <p class="description">${reward.description}</p>
+        ${getCommandButtonHtml(reward.command)}
+      </div>
+    </article>
+  `).join("");
+}
+
+function showToast(message) {
+  toastEl.textContent = message;
+  toastEl.classList.add("show");
+
+  setTimeout(() => {
+    toastEl.classList.remove("show");
+  }, 1600);
+}
+
+document.addEventListener("click", async (event) => {
   const button = event.target.closest(".command-box");
   if (!button) return;
 
@@ -401,16 +583,21 @@
     icon.textContent = "✅";
     button.classList.add("copied");
 
+    showToast(`Copied ${command}`);
+
     setTimeout(() => {
       icon.textContent = originalIcon;
       button.classList.remove("copied");
     }, 1200);
   } catch (error) {
-    alert(`Copy this command: ${command}`);
+    showToast(`Copy this command: ${command}`);
   }
 });
 
-    loadRewards();
+searchEl.addEventListener("input", renderRewards);
+sortEl.addEventListener("change", renderRewards);
+
+loadRewards();
   </script>
   
   <main id="rewards"></main>
