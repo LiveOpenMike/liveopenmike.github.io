@@ -11,7 +11,7 @@
   {
     "name": "Happy Hour",
     "cost": 10000,
-    "command": "!buy happyHour",
+    "command": "!buy happyhour",
     "thumbnail": "images/happyHour1hr.png",
     "description": "Time & event pixel rewards are doubled for one hour",
     "tags": ["Event", "Bonuses"],
@@ -21,7 +21,7 @@
     "name": "Happy Hour Stream",
     "cost": 30000,
     "command": "!buy happyStream",
-    "thumbnail": "images/happyHour24hr.png",
+    "thumbnail": "images/happyhour24.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream",
     "tags": ["Event", "Bonuses"],
     "featured": true
@@ -29,7 +29,7 @@
   {
     "name": "Paper Beast",
     "cost": 35000,
-    "command": "!buy paperBeast",
+    "command": "!buy paperbeast",
     "thumbnail": "images/paperBeast.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream",
     "tags": ["Game", "Stream", "Playthrough"],
@@ -38,7 +38,7 @@
   {
     "name": "Potato Stream",
     "cost": 100000,
-    "command": "!buy potatoStream",
+    "command": "!buy potatostream",
     "thumbnail": "images/potatoCostume.png",
     "description": "Streamer does a full stream in a potato costume",
     "tags": ["Event", "Stream"],
@@ -83,11 +83,55 @@
   {
     "name": "Pixel Giveaway",
     "cost": 12000,
-    "command": "!buy pixelGiveaway",
+    "command": "!buy pixelgiveaway",
     "thumbnail": "images/pixelGiveaway.png",
     "description": "Sponsor a onetime giveaway of 4,000 for chat!",
     "tags": ["Event", "Bonuses"],
     "featured": false
+  },
+  {
+    "name": "VRChat World Hop",
+    "cost": 15000,
+    "command": "!buy vrchat",
+    "thumbnail": "images/vrchat.png",
+    "description": "Spend the night exploring worlds in VRChat",
+    "tags": ["Stream", "Game", "Event"],
+    "featured": false
+  }, 
+  {
+    "name": "Custom Command",
+    "cost": 25000,
+    "command": "!buy command",
+    "thumbnail": "images/command.png",
+    "description": "Add a new command to the channel (subject to approval)",
+    "tags": ["Event"],
+    "featured": false
+  },
+  {
+    "name": "Charitable Donation",
+    "cost": 2500,
+    "command": "!buy handout",
+    "thumbnail": "images/charity.png",
+    "description": "Gift 1,000 pixels to any viewer of your choosing",
+    "tags": ["Event", "Bonuses"],
+    "featured": false
+  },
+  {
+    "name": "Switch It Up",
+    "cost": 15000,
+    "command": "!buy switch",
+    "thumbnail": "images/switch.png",
+    "description": "Add a Nintendo Switch 2 stream to the schedule",
+    "tags": ["Event", "Stream", "Game"],
+    "featured": false
+  },
+  {
+    "name": "Make It Rain",
+    "cost": 6500,
+    "command": "!buy makeitrain",
+    "thumbnail": "images/rain.png",
+    "description": "Gift 250 pixels to everyone currently in chat",
+    "tags": ["Event", "Bonuses"],
+    "featured": false
   }
-  
 ]
