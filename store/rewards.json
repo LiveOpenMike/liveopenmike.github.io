@@ -21,7 +21,7 @@
     "name": "Happy Hour Stream",
     "cost": 30000,
     "command": "!buy happyStream",
-    "thumbnail": "images/happyhour24.png",
+    "thumbnail": "images/happyhour24hr.png",
     "description": "Time & event pixel rewards are doubled for the rest of stream",
     "tags": ["Event", "Bonuses"],
     "featured": true
