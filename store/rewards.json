@@ -103,7 +103,7 @@
     "cost": 25000,
     "command": "!buy command",
     "thumbnail": "images/command.png",
-    "description": "Add a new command to the channel (subject to approval)",
+    "description": "Add a new command to the channel (subject to approval; limit one per person)",
     "tags": ["Event"],
     "featured": false
   },
