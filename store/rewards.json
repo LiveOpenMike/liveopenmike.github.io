@@ -125,6 +125,15 @@
     "tags": ["Event", "Stream", "Game"],
     "featured": false
   },
+    {
+    "name": "Guess The Clip!",
+    "cost": 10000,
+    "command": "!buy clip",
+    "thumbnail": "images/multitask.png",
+    "description": "Correctly guess the game from a random Live Open Mike clip and win 30,000 pixels!",
+    "tags": ["Event", "Bonuses"],
+    "featured": false
+  },
   {
     "name": "Make It Rain",
     "cost": 6500,
