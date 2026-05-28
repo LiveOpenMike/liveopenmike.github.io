@@ -39,7 +39,7 @@
     "name": "Potato Stream",
     "cost": 100000,
     "command": "!buy potatostream",
-    "thumbnail": "images/potatoCostume.png",
+    "thumbnail": "images/potatoV2.png",
     "description": "Streamer does a full stream in a potato costume",
     "tags": ["Event", "Stream"],
     "featured": false
